@@ -1,5 +1,5 @@
 // import 'package:bookstore/screens/login.dart';
-import 'package:bookstore/screens/login.dart';
+import 'package:bookstore/screens/cover_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.brown,
       ),
       title: 'Book Store',
-      home: const LoginPage(),
+      home: const CoverPage(),
     );
   }
 }
