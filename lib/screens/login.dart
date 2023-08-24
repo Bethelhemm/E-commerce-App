@@ -1,3 +1,4 @@
+import 'package:bookstore/screens/signup.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,16 +9,29 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          title: const Text(
-            "goodReads",
-            style: TextStyle(fontSize: 34, color: Colors.brown),
-          ),
-          centerTitle: true,
+       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text.rich(
+          TextSpan(
+              text: "good",
+              style: TextStyle(
+                  fontSize: 50,
+                  fontFamily: AutofillHints.birthday,
+                  color: Colors.brown.shade200,
+                  fontWeight: FontWeight.w400),
+              children: const [
+                TextSpan(
+                    text: "reads",
+                    style: TextStyle(
+                        fontSize: 50,
+                        color: Colors.brown,
+                        fontWeight: FontWeight.bold))
+              ]),
         ),
-        body: Padding(
+        centerTitle: true,
+      ),
+      body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
@@ -196,7 +210,12 @@ class LoginPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignUpPage()));
+                      },
                       style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.all(18.0),
                           shape: RoundedRectangleBorder(
@@ -211,64 +230,63 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 30,
+              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text.rich(
-                          TextSpan(children: [
-                            TextSpan(
-                              text: ' Terms of Service',
-                              style: const TextStyle(
-                                fontSize: 18,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  const url =
-                                      'https://example.com/terms-of-service'; // Replace with your Terms of Service URL
-                                  launchUrl(url as Uri);
-                                },
-                            ),
-                            const TextSpan(
-                              text: ' ',
-                              style: TextStyle(fontSize: 100),
-                            ),
-                            TextSpan(
-                              text: ' Privacy',
-                              style: const TextStyle(
-                                fontSize: 18,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  const url =
-                                      'https://example.com/terms-of-service'; // Replace with your Terms of Service URL
-                                  launchUrl(url as Uri);
-                                },
-                            ),
-                            const TextSpan(
-                              text: ' ',
-                              style: TextStyle(fontSize: 100),
-                            ),
-                            TextSpan(
-                              text: ' Help',
-                              style: const TextStyle(
-                                fontSize: 18,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  const url =
-                                      'https://example.com/terms-of-service'; // Replace with your Terms of Service URL
-                                  launchUrl(url as Uri);
-                                },
-                            ),
-                          ]),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+                    Text.rich(
+                      TextSpan(children: [
+                        TextSpan(
+                          text: ' Terms of Service',
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              const url =
+                                  'https://example.com/terms-of-service'; // Replace with your Terms of Service URL
+                              launchUrl(url as Uri);
+                            },
+                        ),
+                        const TextSpan(
+                          text: ' ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextSpan(
+                          text: ' Privacy',
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              const url =
+                                  'https://example.com/terms-of-service'; // Replace with your Terms of Service URL
+                              launchUrl(url as Uri);
+                            },
+                        ),
+                        const TextSpan(
+                          text: ' ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextSpan(
+                          text: ' Help',
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              const url =
+                                  'https://example.com/terms-of-service'; // Replace with your Terms of Service URL
+                              launchUrl(url as Uri);
+                            },
+                        ),
+                      ]),
+                      textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 20),
                     const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 50),
                         child: Row(
@@ -280,7 +298,7 @@ class LoginPage extends StatelessWidget {
                             ),
                             Text("2023 Goodreads, Inc."),
                           ],
-                        ))
+                        )),
                   ],
                 ),
               ),

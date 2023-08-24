@@ -1,4 +1,5 @@
 import 'package:bookstore/screens/login_member.dart';
+import 'package:bookstore/screens/signup.dart';
 import 'package:flutter/material.dart';
 
 class CoverPage extends StatelessWidget {
@@ -121,7 +122,12 @@ class CoverPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpPage()));
+                        },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
