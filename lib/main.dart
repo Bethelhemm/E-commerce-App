@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       home: Padding(
         padding: MediaQuery.of(context).size.width > 750
             ? EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 3.8)
+                horizontal: MediaQuery.of(context).size.width / 4)
             : const EdgeInsets.all(0),
         child: const CoverPage(),
       ),

@@ -41,9 +41,9 @@ class CoverPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Find more books you'll love."),
+                Text("Find more books you'll love in hardcopy."),
                 Text("Use the scan feature to easily keep track of books."),
-                Text("Get recommendations frmo readers like you."),
+                Text("Get recommendations from readers like you."),
               ],
             ),
           ),
@@ -155,11 +155,10 @@ class CoverPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginPage()));
+                                  builder: (context) => const LoginPage()));
                         },
                         child: const Text.rich(TextSpan(
-                          text: "Already a Goodreads member?  ",
+                          text: "Already have an account?  ",
                           children: [
                             TextSpan(
                                 text: "Log In",
@@ -176,7 +175,7 @@ class CoverPage extends StatelessWidget {
           SizedBox(
             width: 300,
             height: 300,
-            child: Image.asset('../assets/books.png'),
+            child: Image.asset('assets/books.png'),
           ),
         ],
       ),
