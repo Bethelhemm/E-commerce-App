@@ -1,5 +1,7 @@
-import 'package:bookstore/screens/login_member.dart';
-import 'package:bookstore/screens/signup.dart';
+import 'package:book_store/screens/login.dart';
+
+// import '../screens/login_member.dart';
+import '../screens/signup.dart';
 import 'package:flutter/material.dart';
 
 class CoverPage extends StatelessWidget {
@@ -13,7 +15,7 @@ class CoverPage extends StatelessWidget {
         elevation: 0.0,
         title: Text.rich(
           TextSpan(
-              text: "good",
+              text: "Page",
               style: TextStyle(
                   fontSize: 50,
                   fontFamily: AutofillHints.birthday,
@@ -21,7 +23,7 @@ class CoverPage extends StatelessWidget {
                   fontWeight: FontWeight.w400),
               children: const [
                 TextSpan(
-                    text: "reads",
+                    text: "Turner",
                     style: TextStyle(
                         fontSize: 50,
                         color: Colors.brown,
@@ -154,7 +156,7 @@ class CoverPage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const LoginMemberPage()));
+                                      const LoginPage()));
                         },
                         child: const Text.rich(TextSpan(
                           text: "Already a Goodreads member?  ",

@@ -1,10 +1,22 @@
-import 'package:bookstore/screens/login.dart';
+import '../screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  bool _obscureText = true;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +26,7 @@ class SignUpPage extends StatelessWidget {
           elevation: 0.0,
           title: Text.rich(
             TextSpan(
-                text: "good",
+                text: "Page",
                 style: TextStyle(
                     fontSize: 50,
                     fontFamily: AutofillHints.birthday,
@@ -22,7 +34,7 @@ class SignUpPage extends StatelessWidget {
                     fontWeight: FontWeight.w400),
                 children: const [
                   TextSpan(
-                      text: "reads",
+                      text: "Turner",
                       style: TextStyle(
                           fontSize: 50,
                           color: Colors.brown,
@@ -57,6 +69,7 @@ class SignUpPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: const TextField(
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'First and last name',
@@ -77,6 +90,7 @@ class SignUpPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: const TextField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Your email address',
@@ -96,13 +110,14 @@ class SignUpPage extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Create a password',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
-                  obscureText: true,
+                  obscureText: _obscureText,
                 ),
               ),
               Column(
@@ -118,9 +133,13 @@ class SignUpPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.check_box_outline_blank_sharp,
+                          onPressed: () {
+                            _togglePasswordVisibility();
+                          },
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.check_box_outline_blank_sharp
+                                : Icons.check_box,
                             size: 25,
                           )),
                       const Text(

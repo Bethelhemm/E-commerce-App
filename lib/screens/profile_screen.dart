@@ -1,4 +1,6 @@
-import 'package:book_store/models/user_model.dart';
+// import 'package:book_store/models/user_model.dart';
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 //import '../models/user_model.dart';
@@ -18,7 +20,7 @@ class _profile_screenState extends State<profile_screen> {
       appBar: AppBar(title: const Text('Your profile'), actions: [
         IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
             )),
       ]),
@@ -27,19 +29,19 @@ class _profile_screenState extends State<profile_screen> {
         children: [
           Column(
             children: [
-              Padding(padding: EdgeInsets.all(8.0)),
-              CircleAvatar(
+              const Padding(padding: EdgeInsets.all(8.0)),
+              const CircleAvatar(
                 backgroundImage: AssetImage('assets/profile.png'),
                 radius: 80.0,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'Full Name',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               Text(
@@ -49,7 +51,7 @@ class _profile_screenState extends State<profile_screen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.blue[600]),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               Text(
@@ -59,10 +61,11 @@ class _profile_screenState extends State<profile_screen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.blue[600]),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Edit Profile'))
+              ElevatedButton(
+                  onPressed: () {}, child: const Text('Edit Profile'))
             ],
           ),
         ],

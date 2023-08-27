@@ -1,37 +1,49 @@
-import 'package:bookstore/screens/signup.dart';
+import '../screens/signup.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _obscureText = true;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text.rich(
-          TextSpan(
-              text: "good",
-              style: TextStyle(
-                  fontSize: 50,
-                  fontFamily: AutofillHints.birthday,
-                  color: Colors.brown.shade200,
-                  fontWeight: FontWeight.w400),
-              children: const [
-                TextSpan(
-                    text: "reads",
-                    style: TextStyle(
-                        fontSize: 50,
-                        color: Colors.brown,
-                        fontWeight: FontWeight.bold))
-              ]),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          title: Text.rich(
+            TextSpan(
+                text: "Page",
+                style: TextStyle(
+                    fontSize: 50,
+                    fontFamily: AutofillHints.birthday,
+                    color: Colors.brown.shade200,
+                    fontWeight: FontWeight.w400),
+                children: const [
+                  TextSpan(
+                      text: "Turner",
+                      style: TextStyle(
+                          fontSize: 50,
+                          color: Colors.brown,
+                          fontWeight: FontWeight.bold))
+                ]),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
@@ -79,6 +91,7 @@ class LoginPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: const TextField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'email',
@@ -98,13 +111,14 @@ class LoginPage extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'password',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
-                  obscureText: true,
+                  obscureText: _obscureText,
                 ),
               ),
               Column(
@@ -112,9 +126,13 @@ class LoginPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.check_box_outline_blank_sharp,
+                          onPressed: () {
+                            _togglePasswordVisibility();
+                          },
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.check_box_outline_blank_sharp
+                                : Icons.check_box,
                             size: 25,
                           )),
                       const Text(
