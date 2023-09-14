@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/book_detail.dart';
-import '../Models/books.dart';
+import '../models/books.dart';
 
 class HomeApp extends StatelessWidget {
   const HomeApp({super.key});

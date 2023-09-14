@@ -1,3 +1,11 @@
+// ignore_for_file: avoid_print
+
+// import 'dart:ui';
+
+import 'package:book_store/models/user_model.dart';
+import 'package:book_store/api/api_services.dart';
+import 'package:book_store/screens/homepage.dart';
+
 import '../screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +20,35 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   bool _obscureText = true;
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  // final TextEditingController _firstNameController = TextEditingController();
+
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  void _signupPressed() async {
+    ApiService apiservices = ApiService();
+    Future<RegistrationResponse?> future = apiservices.registration(
+        _userNameController.text,
+        _emailController.text,
+        _passwordController.text,
+        "user");
+    RegistrationResponse? response = await future;
+    print(response);
+    print(_userNameController.text);
   }
 
   @override
@@ -68,11 +101,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
+                child: TextField(
+                  controller: _userNameController,
                   keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'First and last name',
+                    hintText: 'Username',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
                 ),
@@ -80,27 +114,28 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(
                 height: 16,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 224, 218, 218),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: const TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Your email address',
-                    contentPadding: EdgeInsets.all(10.0),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Colors.grey.shade200,
+              //     border: Border.all(
+              //       color: const Color.fromARGB(255, 224, 218, 218),
+              //       width: 1.0,
+              //     ),
+              //     borderRadius: BorderRadius.circular(30.0),
+              //   ),
+              //   child: TextField(
+              //     controller: _lastNameController,
+              //     keyboardType: TextInputType.name,
+              //     decoration: const InputDecoration(
+              //       border: InputBorder.none,
+              //       hintText: 'Last name',
+              //       contentPadding: EdgeInsets.all(10.0),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 16,
+              // ),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
@@ -111,6 +146,30 @@ class _SignUpPageState extends State<SignUpPage> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Your email address',
+                    contentPadding: EdgeInsets.all(10.0),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  border: Border.all(
+                    color: const Color.fromARGB(255, 224, 218, 218),
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: TextField(
+                  controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -163,7 +222,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          _signupPressed();
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        },
                         child: const Text("Create account")),
                   ),
                 ],
