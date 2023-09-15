@@ -14,46 +14,54 @@ class user_model {
     required this.email,
     required this.id,
     required this.role,
-    // required this.phoneNumber,
-    //required this.adress
   });
 }
 
 class RegistrationResponse {
-  // List<String>? non_field_error;
   List<String>? username;
   List<String>? password;
   List<String>? email;
-  // List<String>? id; //it can be  id
 
-  RegistrationResponse(
-      {this.email,
-      this.username,
-      this.password,
-      // this.id,
-      // this.non_field_error
-      });
-  factory RegistrationResponse.fromJson(mapOfBody) {
+  RegistrationResponse({
+    this.email,
+    this.username,
+    this.password,
+    // this.id,
+    // this.non_field_error
+  });
+  factory RegistrationResponse.fromJson(Map<String, dynamic> mapOfBody) {
+    final email = mapOfBody['email'];
+    final username = mapOfBody["username"];
+    final password = mapOfBody["password"];
+
+    final emailList = email is List ? email.cast<String>() : null;
+    final usernameList = username is List ? username.cast<String>() : null;
+    final passwordList = password is List ? password.cast<String>() : null;
     return RegistrationResponse(
-        email: mapOfBody("email"),
-        username: mapOfBody("username"),
-        password: mapOfBody("password"),
-        // id: mapOfBody("key"),
-        // non_field_error: mapOfBody("non_field_error")
-        );
+      email: emailList,
+      username: usernameList,
+      password: passwordList,
+    );
   }
 }
 
 class LoginResponse {
-  dynamic key;
-  List<dynamic>? non_field_error;
+  List<String>? username;
+  List<String>? password;
   LoginResponse({
-    this.key,
-    this.non_field_error,
+    this.username,
+    this.password,
   });
 
-  factory LoginResponse.fromJson(mapOfBody) {
+  factory LoginResponse.fromJson(Map<String, dynamic> mapOfBody) {
+    final username = mapOfBody["username"];
+    final password = mapOfBody["password"];
+
+    final usernameList = username is List ? username.cast<String>() : null;
+    final passwordList = password is List ? password.cast<String>() : null;
     return LoginResponse(
-        key: mapOfBody("key"), non_field_error: mapOfBody("non_field_error"));
+      username: usernameList,
+      password: passwordList,
+    );
   }
 }

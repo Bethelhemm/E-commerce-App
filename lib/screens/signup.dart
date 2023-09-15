@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unnecessary_null_comparison
 
 // import 'dart:ui';
 
@@ -23,7 +23,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  // final TextEditingController _firstNameController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -40,15 +39,67 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signupPressed() async {
+    String userName = _userNameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    // Check if any of the fields are empty
+    if (userName.isEmpty || email.isEmpty || password.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please fill in all the fields.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
     ApiService apiservices = ApiService();
     Future<RegistrationResponse?> future = apiservices.registration(
-        _userNameController.text,
-        _emailController.text,
-        _passwordController.text,
-        "user");
+      userName,
+      email,
+      password,
+      "user",
+    );
     RegistrationResponse? response = await future;
-    print(response);
-    print(_userNameController.text);
+
+    if (response == null) {
+      // Email is already registered
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Email address is already registered.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
   }
 
   @override
@@ -224,11 +275,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             )),
                         onPressed: () {
                           _signupPressed();
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
                         },
                         child: const Text("Create account")),
                   ),

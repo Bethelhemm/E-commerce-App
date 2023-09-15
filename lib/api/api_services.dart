@@ -10,25 +10,36 @@ Map<String, String> headers = {
 };
 
 class ApiService {
-  Future<LoginResponse?> login(String email, String password) async {
+  Future<LoginResponse?> login(String username, String password) async {
+    Map<String, dynamic> requestBody = {
+      "username": username,
+      "password": password,
+    };
+    String jsonBody = json.encode(requestBody);
+
     var response = await http.post(ApiConstants.loginUrl,
-        headers: headers, body: {"email": email, "password": password});
-    return LoginResponse.fromJson(jsonDecode(response.body));
+        headers: headers, body: jsonBody);
+    if (response.statusCode == 401) {
+      return null;
+    } else {
+      print(response.body);
+      return LoginResponse.fromJson(jsonDecode(response.body));
+    }
   }
 
   Future<RegistrationResponse?> registration(
       String username, String email, String password, String role) async {
     Map<String, dynamic> requestBody = {
       "username": username,
-      "password": password,
       "email": email,
+      "password": password,
       "role": role
     };
     String jsonBody = json.encode(requestBody);
 
     var registrationResponse = await http.post(ApiConstants.registrationUrl,
         headers: headers, body: jsonBody);
-    if (registrationResponse.statusCode == 200) {
+    if (registrationResponse.statusCode == 201) {
       print(registrationResponse.body);
       return RegistrationResponse.fromJson(
           jsonDecode(registrationResponse.body));

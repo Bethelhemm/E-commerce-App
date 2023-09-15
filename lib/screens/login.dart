@@ -1,3 +1,7 @@
+import 'package:book_store/api/api_services.dart';
+import 'package:book_store/models/user_model.dart';
+import 'package:book_store/screens/homepage.dart';
+
 import '../screens/signup.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +16,80 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
+  }
+
+  void _signinPressed() async {
+    String username = _userNameController.text;
+    String password = _passwordController.text;
+
+    // Check if any of the fields are empty
+    if (username.isEmpty || password.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please fill in all the fields.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    ApiService apiservices = ApiService();
+    Future<LoginResponse?> future = apiservices.login(
+      username,
+      password,
+    );
+    LoginResponse? response = await future;
+    if (response == null) {
+      // Email is already registered
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Invaild Username or Password'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
   }
 
   @override
@@ -90,11 +164,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: _userNameController,
+                  keyboardType: TextInputType.name,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'email',
+                    hintText: 'Username',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
                 ),
@@ -112,6 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: TextField(
+                  controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -156,7 +232,9 @@ class _LoginPageState extends State<LoginPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          _signinPressed();
+                        },
                         child: const Text("Sign in")),
                   ),
                 ],
