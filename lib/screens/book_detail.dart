@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:bookstore/Models/books.dart';
+import '../models/books.dart';
 
 class BookDetailScreen extends StatelessWidget {
   final Book book;
 
-  BookDetailScreen({required this.book});
+  const BookDetailScreen({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details'),
+        title: const Text('Details'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,29 +22,29 @@ class BookDetailScreen extends StatelessWidget {
             width: 150,
             fit: BoxFit.cover,
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Text(
             book.bookName,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             book.author,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18.0,
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Text(
             'Price: \$${book.price.toStringAsFixed(2)}',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
         ],
       ),
     );

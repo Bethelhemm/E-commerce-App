@@ -1,5 +1,7 @@
-import 'package:bookstore/screens/login_member.dart';
-import 'package:bookstore/screens/signup.dart';
+import 'package:book_store/screens/login.dart';
+
+// import '../screens/login_member.dart';
+import '../screens/signup.dart';
 import 'package:flutter/material.dart';
 
 class CoverPage extends StatelessWidget {
@@ -13,7 +15,7 @@ class CoverPage extends StatelessWidget {
         elevation: 0.0,
         title: Text.rich(
           TextSpan(
-              text: "good",
+              text: "Page",
               style: TextStyle(
                   fontSize: 50,
                   fontFamily: AutofillHints.birthday,
@@ -21,7 +23,7 @@ class CoverPage extends StatelessWidget {
                   fontWeight: FontWeight.w400),
               children: const [
                 TextSpan(
-                    text: "reads",
+                    text: "Turner",
                     style: TextStyle(
                         fontSize: 50,
                         color: Colors.brown,
@@ -39,9 +41,9 @@ class CoverPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Find more books you'll love."),
+                Text("Find more books you'll love in hardcopy."),
                 Text("Use the scan feature to easily keep track of books."),
-                Text("Get recommendations frmo readers like you."),
+                Text("Get recommendations from readers like you."),
               ],
             ),
           ),
@@ -86,36 +88,6 @@ class CoverPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 214, 165, 16),
-                            padding: const EdgeInsets.all(18.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            )),
-                        onPressed: () {},
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.amp_stories),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text("Continue with Amazon"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.all(18.0),
@@ -153,11 +125,10 @@ class CoverPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginMemberPage()));
+                                  builder: (context) => const LoginPage()));
                         },
                         child: const Text.rich(TextSpan(
-                          text: "Already a Goodreads member?  ",
+                          text: "Already have an account?  ",
                           children: [
                             TextSpan(
                                 text: "Log In",
@@ -174,7 +145,7 @@ class CoverPage extends StatelessWidget {
           SizedBox(
             width: 300,
             height: 300,
-            child: Image.asset('../assets/books.png'),
+            child: Image.asset('assets/books.png'),
           ),
         ],
       ),

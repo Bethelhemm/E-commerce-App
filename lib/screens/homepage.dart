@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:bookstore/screens/book_detail.dart';
-import 'package:bookstore/Models/books.dart';
+import '../screens/book_detail.dart';
+import '../models/books.dart';
 
 class HomeApp extends StatelessWidget {
+  const HomeApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,13 +12,16 @@ class HomeApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -75,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('As The Page Turns'),
+          title: const Text('As The Page Turns'),
         ),
         body: Column(
           children: [
@@ -83,16 +88,16 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 onChanged: onSearchTextChanged,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Search items...',
                 ),
               ),
             ),
             GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 itemCount: filteredBooks.length,
                 itemBuilder: (BuildContext context, int index) {
                   final book = filteredBooks[index];
@@ -115,10 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 100,
                             fit: BoxFit.cover,
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Text(
                             book.bookName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),

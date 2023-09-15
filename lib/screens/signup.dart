@@ -1,10 +1,106 @@
-import 'package:bookstore/screens/login.dart';
+// ignore_for_file: avoid_print, unnecessary_null_comparison
+
+// import 'dart:ui';
+
+import 'package:book_store/models/user_model.dart';
+import 'package:book_store/api/api_services.dart';
+import 'package:book_store/screens/homepage.dart';
+
+import '../screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  bool _obscureText = true;
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  void _signupPressed() async {
+    String userName = _userNameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    // Check if any of the fields are empty
+    if (userName.isEmpty || email.isEmpty || password.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please fill in all the fields.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    ApiService apiservices = ApiService();
+    Future<RegistrationResponse?> future = apiservices.registration(
+      userName,
+      email,
+      password,
+      "user",
+    );
+    RegistrationResponse? response = await future;
+
+    if (response == null) {
+      // Email is already registered
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Email address is already registered.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +110,7 @@ class SignUpPage extends StatelessWidget {
           elevation: 0.0,
           title: Text.rich(
             TextSpan(
-                text: "good",
+                text: "Page",
                 style: TextStyle(
                     fontSize: 50,
                     fontFamily: AutofillHints.birthday,
@@ -22,7 +118,7 @@ class SignUpPage extends StatelessWidget {
                     fontWeight: FontWeight.w400),
                 children: const [
                   TextSpan(
-                      text: "reads",
+                      text: "Turner",
                       style: TextStyle(
                           fontSize: 50,
                           color: Colors.brown,
@@ -56,10 +152,12 @@ class SignUpPage extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: _userNameController,
+                  keyboardType: TextInputType.name,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'First and last name',
+                    hintText: 'Username',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
                 ),
@@ -67,6 +165,28 @@ class SignUpPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Colors.grey.shade200,
+              //     border: Border.all(
+              //       color: const Color.fromARGB(255, 224, 218, 218),
+              //       width: 1.0,
+              //     ),
+              //     borderRadius: BorderRadius.circular(30.0),
+              //   ),
+              //   child: TextField(
+              //     controller: _lastNameController,
+              //     keyboardType: TextInputType.name,
+              //     decoration: const InputDecoration(
+              //       border: InputBorder.none,
+              //       hintText: 'Last name',
+              //       contentPadding: EdgeInsets.all(10.0),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 16,
+              // ),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
@@ -76,8 +196,10 @@ class SignUpPage extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Your email address',
                     contentPadding: EdgeInsets.all(10.0),
@@ -87,6 +209,7 @@ class SignUpPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
+
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
@@ -96,13 +219,15 @@ class SignUpPage extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: _passwordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Create a password',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
-                  obscureText: true,
+                  obscureText: _obscureText,
                 ),
               ),
               Column(
@@ -118,9 +243,13 @@ class SignUpPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.check_box_outline_blank_sharp,
+                          onPressed: () {
+                            _togglePasswordVisibility();
+                          },
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.check_box_outline_blank_sharp
+                                : Icons.check_box,
                             size: 25,
                           )),
                       const Text(
@@ -144,7 +273,9 @@ class SignUpPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          _signupPressed();
+                        },
                         child: const Text("Create account")),
                   ),
                 ],
