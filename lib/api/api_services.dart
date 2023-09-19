@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 import 'dart:convert';
-import 'package:book_store/models/user_model.dart';
+import '../models/user_model.dart';
 import 'package:http/http.dart' as http;
 import '../utils/constants.dart';
 
@@ -18,8 +18,8 @@ class ApiService {
     String jsonBody = json.encode(requestBody);
 
     var response = await http.post(ApiConstants.loginUrl,
-        headers: headers, body: jsonBody);
-    if (response.statusCode == 401) {
+      headers: headers,   body: jsonBody);
+    if (response.statusCode == 400) {
       return null;
     } else {
       print(response.body);
