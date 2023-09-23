@@ -6,8 +6,6 @@ class user_model {
   final String password;
   final String id;
   final String role;
-  // final String phoneNumber;
-  // final List adress[];
   user_model({
     required this.username,
     required this.password,
@@ -26,8 +24,6 @@ class RegistrationResponse {
     this.email,
     this.username,
     this.password,
-    // this.id,
-    // this.non_field_error
   });
   factory RegistrationResponse.fromJson(Map<String, dynamic> mapOfBody) {
     final email = mapOfBody['email'];
