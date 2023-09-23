@@ -217,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 14),
                     Text.rich(
                       TextSpan(
-                        text: 'By signing in, you agree to the Goodreads',
+                        text: 'By signing in, you agree to the Pageturner',
                         style: const TextStyle(
                           fontSize: 18,
                         ),
@@ -366,7 +366,7 @@ class _LoginPageState extends State<LoginPage> {
                                     size: 14,
                                     color: Colors.grey,
                                   ),
-                                  Text("2023 Goodreads, Inc."),
+                                  Text("2023 Pageturner, Inc."),
                                 ],
                               )),
                         ],

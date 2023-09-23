@@ -260,7 +260,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(height: 14),
                 Text.rich(
                   TextSpan(
-                    text: 'By creating an account, you agree to the Goodreads',
+                    text: 'By creating an account, you agree to the Pageturner',
                     style: const TextStyle(
                       fontSize: 18,
                     ),
@@ -405,7 +405,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 size: 14,
                                 color: Colors.grey,
                               ),
-                              Text("2023 Goodreads, Inc."),
+                              Text("2023 Pageturner, Inc."),
                             ],
                           ))
                     ]))
